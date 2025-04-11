@@ -272,7 +272,7 @@ export default function Home() {
           <p className="text-gray-600">
             Have any feedback?{' '}
             <a
-              href="https://www.x.com/sohafidz"
+              href="https://www.x.com/itzmesalamux"
               target="_blank"
               className="underline cursor-pointer"
             >
@@ -282,7 +282,7 @@ export default function Home() {
           <p className="text-gray-600">
             For any bugs, please report them to our{' '}
             <a
-              href="https://github.com/TechForPalestine/palestine-pfp-maker/issues"
+              href="https://github.com/Itzmesalamu/Profile-Pic-Maker.git"
               target="_blank"
               className="underline cursor-pointer"
             >
