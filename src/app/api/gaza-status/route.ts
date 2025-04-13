@@ -5,7 +5,7 @@ import abbreviate from 'number-abbreviate';
 export const runtime = 'edge';
 export async function GET() {
   const res = await fetch(
-    'https://data.techforpalestine.org/api/v2/summary.json',
+    'https://restcountries.com/v3.1/allsummary.json',
     { next: { revalidate: 3600 } },
   );
   if (!res.ok) {
