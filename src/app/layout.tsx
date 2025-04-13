@@ -6,14 +6,14 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Palestine Profile Pic Maker 🇵🇸',
+  title: 'Profile Pic Maker ',
   description:
     'Frame your profile with the colors of Palestine. Let your profile picture speak volumes for peace and justice. #IStandWithPalestine',
   metadataBase: new URL('https://isupportpalestine.netlify.app'),
   openGraph: {
-    title: 'Palestine Profile Pic Maker 🇵🇸',
+    title: 'Profile Pic Maker ',
     description: 'Create your Palestine profile picture to show your support',
-    siteName: 'Palestine Profile Pic Maker 🇵🇸',
+    siteName: 'Profile Pic Maker ',
     images: '/social-card.png',
   },
 };

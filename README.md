@@ -1,6 +1,6 @@
 [![Ceasefire Now](https://badge.techforpalestine.org/default)](https://techforpalestine.org/learn-more)
 
-# Palestine Profile Pic Maker
+# Profile Pic Maker
 
 ## Overview
 
@@ -8,7 +8,7 @@ This is a simple browser-only web app that allows users to upload their profile 
 
 ## How to Use
 
-1. Visit the [Palestine Profile Pic Maker](https://isupportpalestine.netlify.app/).
+1. Visit the [Profile Pic Maker](https://isupportpalestine.netlify.app/).
 2. Click on the "Upload" button to select your profile picture.
 3. Wait for the app to process the image and apply the Palestine border.
 4. Once processed, click on the "Download" button to save your modified profile picture.
