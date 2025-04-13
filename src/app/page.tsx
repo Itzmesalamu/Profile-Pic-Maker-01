@@ -318,7 +318,7 @@ export default function Home() {
               target="_blank"
               className="underline cursor-pointer"
             >
-              Let me know!
+              Let me know!!
             </a>
           </p>
           <p className="text-gray-600">
