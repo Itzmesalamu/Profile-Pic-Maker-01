@@ -16,33 +16,12 @@ import {
 export default function Home() {
   const ref = useRef<HTMLDivElement>(null);
   const [userImageUrl, setUserImageUrl] = useState<string>();
-  const [unsupportedBrowser, setUnsupportedBrowser] = useState(false);
+  const [unsuportedBrowser, setUnsupportedBrowser] = useState(false);
   const [loader, setLoader] = useState(false);
   const [gazaStatusSummary, setGazaStatusSummary] = useState();
-  const [filePostfix, setFilePostfix] = useState<SocialPlatform | 'user-upload'>();
-  const [selectedCountry, setSelectedCountry] = useState<string>('india'); // Default to India
-
-  // List of countries with corresponding border image filenames
-  const countries = [
-    { name: 'India', flag: '🇮🇳', borderImage: '/bg-india.webp' },
-  { name: 'USA', flag: '🇺🇸', borderImage: '/bg-usa.webp' },
-  { name: 'China', flag: '🇨🇳', borderImage: '/bg-china.webp' },
-  { name: 'Afghanistan', flag: '🇦🇫', borderImage: '/bg-Afghanistan.webp' },
-  { name: 'Bangladesh', flag: '🇧🇩', borderImage: '/bg-bangladesh.webp' },
-  { name: 'Palestine', flag: '🇵🇸', borderImage: '/bg-palestine.webp' },
-  { name: 'Bhutan', flag: '🇧🇹', borderImage: '/bg-bhutan.webp' },
-  { name: 'Pakistan', flag: '🇵🇰', borderImage: '/bg-pakistan.webp' },
-  { name: 'Nepal', flag: '🇳🇵', borderImage: '/bg-nepal.webp' },
-  { name: 'Sri Lanka', flag: '🇱🇰', borderImage: '/bg-SriLanka.webp' }
-    // { name: 'Brazil', flag: '🇧🇷', borderImage: '/bg-brazil.webp' },
-    // { name: 'Japan', flag: '🇯🇵', borderImage: '/bg-japan.webp' },
-    // { name: 'France', flag: '🇫🇷', borderImage: '/bg-france.webp' },
-    // { name: 'Germany', flag: '🇩🇪', borderImage: '/bg-germany.webp' },
-    // { name: 'UK', flag: '🇬🇧', borderImage: '/bg-uk.webp' },
-    // { name: 'Nigeria', flag: '🇳🇬', borderImage: '/bg-nigeria.webp' },
-    // { name: 'Australia', flag: '🇦🇺', borderImage: '/bg-australia.webp' },
-    // { name: 'Canada', flag: '🇨🇦', borderImage: '/bg-canada.webp' },
-  ];
+  const [filePostfix, setFilePostfix] = useState<
+    SocialPlatform | 'user-upload'
+  >();
 
   useEffect(() => {
     const isInstagramBrowser = /Instagram/i.test(navigator.userAgent);
@@ -51,7 +30,7 @@ export default function Home() {
     if (isInstagramBrowser || isFacebookBrowser) {
       setUnsupportedBrowser(true);
     }
-  }, [unsupportedBrowser]);
+  }, [unsuportedBrowser]);
 
   useEffect(() => {
     fetch('/api/gaza-status')
@@ -68,8 +47,10 @@ export default function Home() {
         setFilePostfix('user-upload');
         setUserImageUrl(event.target?.result as string);
       };
+
       reader.readAsDataURL(file);
     } else {
+      // Handle the case when no file is selected (optional)
       console.error('No file selected.');
     }
   };
@@ -111,12 +92,13 @@ export default function Home() {
   };
 
   const handleDownload = async () => {
+    // TODO: Fix if possible. This is a hack to ensure that image generated is as expected. Without repeating generateImage(), at times, the image wont be generated correctly.
     await generateImage();
     await generateImage();
     await generateImage();
     const generatedImageUrl = await generateImage();
     if (generatedImageUrl) {
-      download(generatedImageUrl, `profile-pic-${filePostfix}-${selectedCountry}.png`);
+      download(generatedImageUrl, `profile-pic-${filePostfix}.png`);
     }
   };
 
@@ -124,16 +106,11 @@ export default function Home() {
     setUserImageUrl(undefined);
   };
 
-  // Find the selected country's details
-  const currentCountry = countries.find(
-    (country) => country.name.toLowerCase() === selectedCountry.toLowerCase(),
-  );
-
   return (
     <main className="text-center px-8 py-12 max-w-xl mx-auto flex justify-center align-center items-center min-h-screen">
       <div>
-        {unsupportedBrowser && (
-          <div className="border p-2 rounded-lg bg-yellow-200 my-2 text-sm mb-8">
+        {unsuportedBrowser && (
+          <div className="border p-2 rounded-lg bg-yellow-200 my-2  text-sm mb-8">
             <p className="font-semibold">⚠️ Unsupported Browser Detected</p>
             <p>Please open on regular browsers like Chrome or Safari.</p>
           </div>
@@ -147,11 +124,9 @@ export default function Home() {
             😥 {gazaStatusSummary} →
           </a>
         )}
-        <h1 className="font-semibold text-3xl mt-6">
-          Show Solidarity {currentCountry?.flag || '🌍'}
-        </h1>
+        <h1 className="font-semibold text-3xl mt-6">Show Solidarity 🇵🇸</h1>
         <p className="text-lg py-2">
-        Show your support, let your profile speak.✊
+          Let&apos;s unite in our profile pictures to spotlight the cause. ✊
         </p>
         <p className="text-gray-600">
           Watch the{' '}
@@ -164,24 +139,6 @@ export default function Home() {
           </a>{' '}
           👀
         </p>
-        {/* Country Selection Dropdown */}
-        <div className="my-4">
-          <label htmlFor="country-select" className="text-lg font-semibold">
-            Choose a Country:
-          </label>
-          <select
-            id="country-select"
-            value={selectedCountry}
-            onChange={(e) => setSelectedCountry(e.target.value)}
-            className="ml-2 p-2 border border-gray-900 rounded-lg text-lg"
-          >
-            {countries.map((country) => (
-              <option key={country.name} value={country.name.toLowerCase()}>
-                {country.flag} {country.name}
-              </option>
-            ))}
-          </select>
-        </div>
         <div className="my-12">
           <div className="flex justify-center">
             <div
@@ -189,12 +146,13 @@ export default function Home() {
               className="relative"
               ref={ref}
             >
+              {/* eslint-disable-next-line */}
               <Image
                 width={100}
                 height={100}
                 alt="border"
                 id="borderImage"
-                src={currentCountry?.borderImage || '/bg-india.webp'} // Fallback to India
+                src={'/bg.webp'}
                 style={{ position: 'absolute', width: '100%', height: '100%' }}
                 className="rounded-full"
                 unoptimized
@@ -318,7 +276,7 @@ export default function Home() {
               target="_blank"
               className="underline cursor-pointer"
             >
-              Let me know!!
+              Let me know!
             </a>
           </p>
           <p className="text-gray-600">
@@ -328,6 +286,7 @@ export default function Home() {
               target="_blank"
               className="underline cursor-pointer"
             >
+              {' '}
               GitHub repository.
             </a>
           </p>
